@@ -28,6 +28,11 @@ git push -uf origin main
 - (https://www.baeldung.com/mongodb-upsert)
 ## Code and testing
 
+Cấu trúc phân lớp các package
+ - exception : Chứa các class exception.
+ - model: Chứa các class liên quan đến exeption.
+ - service: Chứa các service bean
+ - controller: Chứa các controller như REST,GRAPHQL
 Steps
 
 1. Implement getUser trong bean UserService.
