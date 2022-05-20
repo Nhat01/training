@@ -38,6 +38,7 @@ Steps
 1. Implement getUser trong bean UserService.
 2. Implement createUser trong bean UserService
 3. Implement testCreateUser in test class.
+4. Submit code vào nhánh :practice- <Tên người thựchiện>
 
 Yêu cầu tìm hiểu trước.
 - Spring boot Mongodb.
