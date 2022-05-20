@@ -22,8 +22,10 @@ git push -uf origin main
 
 ## Integrate with your tools
 
-- [ ] Download intellij https://www.jetbrains.com/idea/download
-
+- [ ] Download intellij (https://www.jetbrains.com/idea/download)
+- [ ]  Các bài học chuẩn bị trước.
+- (https://www.baeldung.com/spring-data-mongodb-tutorial)
+- (https://www.baeldung.com/mongodb-upsert)
 ## Code and testing
 
 Steps
