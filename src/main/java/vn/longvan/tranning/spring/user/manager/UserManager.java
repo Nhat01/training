@@ -1,22 +1,22 @@
-package vn.longvan.tranning.spring.user.service;
+package vn.longvan.tranning.spring.user.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import vn.longvan.tranning.spring.user.exception.UserAlreadyExistException;
 import vn.longvan.tranning.spring.user.exception.UserNotExistException;
 import vn.longvan.tranning.spring.user.model.User;
 
 import java.util.List;
 
-public class UserService {
+public class UserManager {
     @Autowired
     MongoTemplate mongoTemplate;
 
     /**
-     *  Find user by name.
+     * Find user by name.
+     *
      * @param name
      * @return
      */
@@ -25,7 +25,8 @@ public class UserService {
     }
 
     /**
-     *  Get user by userid
+     * Get user by userid
+     *
      * @param id
      * @return null nếu user không tồn tại
      */
@@ -34,11 +35,12 @@ public class UserService {
     }
 
     /**
-     *  Create new user.
-     *  Kiểm tra nếu user đã tồn tại thì trả về exception  UserAlreadyExits
-     *  Chú ý kiểm userid chưa tồn tại mới cho insert
-     *  Cần tìm hiểu các vấn đề sau.
-     *  - mongo upsert
+     * Create new user.
+     * Kiểm tra nếu user đã tồn tại thì trả về exception  UserAlreadyExits
+     * Chú ý kiểm userid chưa tồn tại mới cho insert
+     * Cần tìm hiểu các vấn đề sau.
+     * - mongo upsert
+     *
      * @param user
      */
     public void createUser(User user) throws UserAlreadyExistException {
@@ -46,12 +48,13 @@ public class UserService {
     }
 
     /**
-     *  Change user name
-     *  - Nếu user không tồn tại thì trả vể UserNotExitsException
+     * Change user name
+     * - Nếu user không tồn tại thì trả vể UserNotExitsException
+     *
      * @param userId
      * @param newName
      */
-    public void changeUserName(String userId,String newName) throws UserNotExistException  {
+    public void changeUserName(String userId, String newName) throws UserNotExistException {
 
     }
 

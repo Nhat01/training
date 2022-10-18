@@ -3,13 +3,13 @@ package vn.longvan.tranning.user.test;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import vn.longvan.tranning.spring.user.service.UserService;
+import vn.longvan.tranning.spring.user.manager.UserManager;
 
 @Configuration
 public class TrainingServiceConfiguration {
 
     @Bean
-   UserService getUserService(){
-       return new UserService();
+    UserManager getUserService(){
+       return new UserManager();
    }
 }
