@@ -44,7 +44,10 @@ public class UserManager {
      * @param user
      */
     public void createUser(User user) throws UserAlreadyExistException {
-
+        if (mongoTemplate.exists(Query.query(Criteria.where("id").is(user.getId())), User.class)) {
+            throw new UserAlreadyExistException(USER_EXIST, user);
+        }
+        mongoTemplate.save(user, "user");
     }
 
     /**
@@ -55,7 +58,17 @@ public class UserManager {
      * @param newName
      */
     public void changeUserName(String userId, String newName) throws UserNotExistException {
+        User user = mongoTemplate.findOne(Query.query(Criteria.where("id").is(userId)), User.class);
 
+        if (user == null) {
+            throw new UserNotExistException(USER_NOT_EXIST, userId);
+        }
+
+        user.setName(newName);
+        mongoTemplate.save(user);
     }
+
+    public static String USER_EXIST = "User đã tồn tại";
+    public static String USER_NOT_EXIST = "User không tồn tại";
 
 }
