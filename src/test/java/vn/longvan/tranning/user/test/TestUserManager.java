@@ -81,9 +81,9 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user
          *  3. Change user name không tồn tại
          */
-        String userId = "1";
+        String userId = "2";
         String userIdNotExist = "0";
-        String newName = "Change Vo Hoai Thuong";
+        String newName = "Change Vo Hoai Thuong 2";
 
         userManager.changeUserName(userId, newName);
 
@@ -100,6 +100,19 @@ public class TestUserManager {
                 }
         );
         Assertions.assertEquals(UserManager.USER_NOT_EXIST, thrown.getMessage());
+
+    }
+
+    @Test
+    @Order(4)
+    public void testDeleteUser() {
+        /**
+         *  Trình tự test
+         *  1. Thực hiện xóa user
+         *  2. Get user kiểm tra tên user có bằng null
+         */
+        userManager.deleteUser(createUser.getId());
+        Assertions.assertNull(userManager.getUser(createUser.getId()));
 
     }
 }

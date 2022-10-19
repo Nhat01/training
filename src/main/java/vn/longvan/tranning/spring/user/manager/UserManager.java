@@ -15,6 +15,16 @@ public class UserManager {
     MongoTemplate mongoTemplate;
 
     /**
+     *Get all users
+     *
+     *
+     * @return list user và null nếu user không tồn tại
+     */
+    public List<User> getAllUser() {
+        return mongoTemplate.findAll(User.class);
+    }
+
+    /**
      * Find user by name.
      *
      * @param name
@@ -66,6 +76,21 @@ public class UserManager {
 
         user.setName(newName);
         mongoTemplate.save(user);
+    }
+
+    /**
+     * Delete
+     * Kiểm tra nếu user không tồn tại thì trả về exception  UserNotExistException
+     * @param userId
+     */
+    public void deleteUser(String userId) throws UserNotExistException {
+        User userDelete = mongoTemplate.findOne(Query.query(Criteria.where("id").is(userId)), User.class);
+
+        if (userDelete == null) {
+            throw new UserNotExistException(USER_NOT_EXIST, userId);
+        }
+
+        mongoTemplate.remove(userDelete);
     }
 
     public static String USER_EXIST = "User đã tồn tại";
