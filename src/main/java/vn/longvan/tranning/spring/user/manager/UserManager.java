@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 import vn.longvan.tranning.spring.user.exception.UserAlreadyExistException;
 import vn.longvan.tranning.spring.user.exception.UserNotExistException;
 import vn.longvan.tranning.spring.user.model.User;
 
 import java.util.List;
 
+@Component
 public class UserManager {
     @Autowired
     MongoTemplate mongoTemplate;
 
     /**
-     *Get all users
-     *
+     * Get all users
      *
      * @return list user và null nếu user không tồn tại
      */
@@ -81,6 +82,7 @@ public class UserManager {
     /**
      * Delete
      * Kiểm tra nếu user không tồn tại thì trả về exception  UserNotExistException
+     *
      * @param userId
      */
     public void deleteUser(String userId) throws UserNotExistException {

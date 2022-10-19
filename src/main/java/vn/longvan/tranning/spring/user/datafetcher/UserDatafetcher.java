@@ -1,4 +1,4 @@
-package vn.longvan.tranning.spring.user.Datafetcher;
+package vn.longvan.tranning.spring.user.datafetcher;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -10,7 +10,7 @@ import vn.longvan.tranning.spring.user.model.User;
 import java.util.List;
 
 @DgsComponent
-public class ShowsDatafetcher {
+public class UserDatafetcher {
     @Autowired
     UserManager userManager;
 
