@@ -12,7 +12,7 @@
 
 <h:body>
 <div class="m-5">
-  <p:outputLabel value="Chi tiết người dùng: #{userBean.user.name}" styleClass="block my-4 text-xl"/>
+  <p:outputLabel value="Chi tiết người dùng: #{userBean.user.name}" styleClass="block my-4 font-bold text-xl"/>
   <table class="table max-w-max">
     <tr >
       <th>
@@ -32,7 +32,7 @@
     </tr>
     <tr>
       <th>
-        <p:outputLabel value="birthDay" />
+        <p:outputLabel value="BirthDay" />
       </th>
       <td>
         <p:outputLabel value="#{userBean.user.birthDay}">
@@ -42,7 +42,7 @@
     </tr>
     <tr >
       <th>
-        <p:outputLabel value="created" />
+        <p:outputLabel value="Created Day" />
       </th>
       <td>
         <p:outputLabel value="#{userBean.user.created}">
@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th>
-        <p:outputLabel value="updated" />
+        <p:outputLabel value="Updated Day" />
       </th>
       <td>
         <p:outputLabel value="#{userBean.user.updated}" >
