@@ -7,50 +7,31 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+<title>Thêm người dùng</title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
 </h:head>
 
 <h:body>
-    <div class="card">
+    <div class="card mx-4">
         <h:form>
             <p:messages id="messages"/>
+            <p:outputLabel  value="Thêm tài khoản" styleClass="block my-4 text-2xl"/>
             <h:panelGrid columns="2" cellpadding="7">
-                <p:outputLabel value="Name"/>
-                <p:inputText id="name" required="true" value="#{user.name}"/>
-                <p:outputLabel value="BirthDay"/>
-                <p:datePicker value="#{user.birthDay}"
+                <p:outputLabel value="Name:"/>
+                <p:inputText id="name" required="true" value="#{userBean.user.name}"/>
+                <p:outputLabel  value="BirthDay:"/>
+                <p:datePicker  value="#{userBean.user.birthDay}"
                               showTime="true" required="true"/>
-                <p:outputLabel value="Created"/>
-                <p:datePicker value="#{user.created}"
+                <p:outputLabel value="Created:"/>
+                <p:datePicker  value="#{userBean.user.created}"
                               showTime="true" required="true"/>
-                <p:outputLabel value="Updated"/>
-                <p:datePicker value="#{user.updated}"
+                <p:outputLabel value="Updated:"/>
+                <p:datePicker value="#{userBean.user.updated}"
                               showTime="true" required="true"/>
-
-                <p:commandButton value="Submit" update="@form" styleClass="mt-3"/>
+                <p:commandButton value="Create " action="#{userBean.createUser()}" update="@form" styleClass="mt-3"/>
                 <p:spacer/>
-
-                <!-- For testing, don't remove!
-                <p:outputLabel for="@next" value="Label which considers @NotNull:" />
-                <p:inputText id="nullable" value="#{outputLabelView.nullableValue}" />
-
-                <p:outputLabel for="@next" value="Label which considers @NotNull:" />
-                <p:inputText id="notNull" value="#{outputLabelView.value}" />
-
-                <p:outputLabel for="@next" value="Label for input wrapped in composite:" />
-                <composite:inputTextWrapper id="nullableInComposite" value="#{outputLabelView.nullableValue}" required="true" />
-
-                <p:outputLabel for="@next" value="Label for input wrapped in composite, considering @NotNull:" />
-                <composite:inputTextWrapper id="notNullInComposite" value="#{outputLabelView.value}" />
-
-                <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite:" />
-                <composite:inputTextWrapper id="nullableInCompositeComposite" value="#{outputLabelView.nullableValue}" required="true" />
-
-                <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite, considering @NotNull:" />
-                <composite:inputTextWrapper id="notNullInCompositeComposite" value="#{outputLabelView.value}" />
-                -->
             </h:panelGrid>
         </h:form>
     </div>
-
 </h:body>
 </html>

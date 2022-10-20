@@ -6,36 +6,49 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+    <title>Danh sách người dùng</title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
 </h:head>
 
 <h:body>
     <f:metadata>
         <f:event type="preRenderView" listener="#{userBean.loadData()}"/>
     </f:metadata>
-    <h:outputLabel value="Danh sách tài khoản"/>
-    <h:form id="form" styleClass="m-5">
+    <p:outputLabel  value="Danh sách người dùng" styleClass="block text-center my-4 text-2xl"/>
+    <h:form id="form" styleClass="m-5 ">
+
         <p:commandButton action="#{userBean.loadData()}"
-                         icon="pi pi-refresh" update="@form" process="@this"/>
-        <p:commandButton action="addUser.xhtml?faces-redirect=true"
+                         icon="pi pi-refresh" update="@form" process="@this" styleClass="m-2"/>
+        <p:commandButton action="#{userBean.addUser()}"
                          icon="pi pi-plus"/>
+
         <p:dataTable var="user" value="#{userBean.users}" rowKey="#{user.id}">
+             <p:column headerText="Id">
+                           <h:outputText value="#{user.id}"/>
+                       </p:column>
             <p:column headerText="Name">
                 <h:outputText value="#{user.name}"/>
             </p:column>
             <p:column headerText="BirthDay">
                 <h:outputText value="#{user.birthDay}">
-                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
                 </h:outputText>
             </p:column>
-            <p:column headerText="Created">
+            <p:column headerText="Created Day">
                 <h:outputText value="#{user.created}">
-                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
                 </h:outputText>
             </p:column>
-            <p:column headerText="Updated">
+            <p:column headerText="Updated Day">
                 <h:outputText value="#{user.updated}">
-                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
                 </h:outputText>
+            </p:column>
+                <p:column headerText="Action">
+                      <p:commandButton value="Detail" action="#{userBean.loadUserDetail(user.id)}" styleClass="mx-2"/>
+                      <p:commandButton value="Delete" action="#{userBean.deleteUser(user.id)}" styleClass="ui-button-danger"
+                        update="@form" process="@this"
+                      />
             </p:column>
         </p:dataTable>
     </h:form>

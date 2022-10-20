@@ -36,7 +36,6 @@ public class TestUserManager {
     @Test
     @Order(2)
     public void testCreateUser() {
-
         /**
          *  Trình tự test
          *   1. Create user.
@@ -81,9 +80,9 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user
          *  3. Change user name không tồn tại
          */
-        String userId = "2";
+        String userId = "6350a639853eb67582bc08e8";
         String userIdNotExist = "0";
-        String newName = "Change Vo Hoai Thuong 2";
+        String newName = "Change Vo Hoai Thuong";
 
         userManager.changeUserName(userId, newName);
 
@@ -110,9 +109,19 @@ public class TestUserManager {
          *  Trình tự test
          *  1. Thực hiện xóa user
          *  2. Get user kiểm tra tên user có bằng null
+         *  3. Xóa user không tồn tại
          */
+        String userIdNotExist = "0";
+
         userManager.deleteUser(createUser.getId());
         Assertions.assertNull(userManager.getUser(createUser.getId()));
 
+        UserNotExistException thrown = Assertions.assertThrows(
+                UserNotExistException.class,
+                () -> {
+                    userManager.deleteUser(userIdNotExist);
+                }
+        );
+        Assertions.assertEquals(UserManager.USER_NOT_EXIST, thrown.getMessage());
     }
 }

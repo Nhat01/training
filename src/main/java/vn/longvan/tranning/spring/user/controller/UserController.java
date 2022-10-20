@@ -13,7 +13,7 @@ public class UserController {
     UserManager userManager;
 
     /**
-     * LIỆT KÊ DANH SÁCH TẤT CẢ NGƯỜI ÙNG
+     * LIỆT KÊ DANH SÁCH TẤT CẢ NGƯỜI DÙNG
      * @param
      * @return List<User>
      */
@@ -21,5 +21,39 @@ public class UserController {
         return userManager.getAllUser();
     }
 
+    /**
+     * LIỆT KÊ NGƯỜI DÙNG THEO userId
+     * @param userId
+     * @return User
+     */
+    public User getUserById(String userId){
+        return userManager.getUser(userId);
+    }
 
+    /**
+     * Tạo người dùng
+     * @param user
+     * @return 
+     */
+    public void createUser(User user){
+        userManager.createUser(user);
+    }
+
+    /**
+     * Chỉnh sửa tên người dùng
+     * @param userId, newName
+     * @return
+     */
+    public void changeNameUser(String userId, String newName){
+        userManager.changeUserName(userId, newName);
+    }
+
+    /**
+     * Tạo người dùng
+     * @param userId
+     * @return
+     */
+    public void deleteUser(String userId){
+        userManager.deleteUser(userId);
+    }
 }

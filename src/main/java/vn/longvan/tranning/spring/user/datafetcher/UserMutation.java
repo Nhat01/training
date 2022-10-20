@@ -18,6 +18,13 @@ public class UserMutation {
     @Autowired
     UserManager userManager;
 
+    /**
+     * Thêm user
+     * 1. Nhận các tham số từ dataFetchingEnvironment
+     * 2. Set vào đối tượng user
+     * 3. Gọi hàm createUser
+     * 4. Trả về user đã được thêm
+     */
     @DgsData(parentType = "Mutation", field = "addUser")
     public User addUser(DataFetchingEnvironment dataFetchingEnvironment) throws ParseException {
         DateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
@@ -39,6 +46,12 @@ public class UserMutation {
         return user;
     }
 
+    /**
+     * Thay đổi tên người dùng
+     * 1. Nhận các tham số id, newName từ dataFetchingEnvironment
+     * 3. Gọi hàm changeUserName
+     * 4. Trả về user đã được cập nhật
+     */
     @DgsData(parentType = "Mutation", field = "updateUserName")
     public User updateUserName(DataFetchingEnvironment dataFetchingEnvironment) throws ParseException {
 
@@ -50,6 +63,12 @@ public class UserMutation {
         return userManager.getUser(id);
     }
 
+    /**
+     * Thay đổi tên người dùng
+     * 1. Nhận các tham số id từ dataFetchingEnvironment
+     * 3. Gọi hàm deleteUser
+     * 4. Nếu thành công trả về true, thất bại throw Exception
+     */
     @DgsData(parentType = "Mutation", field = "deleteUser")
     public boolean deleteUser(DataFetchingEnvironment dataFetchingEnvironment) {
         String id = dataFetchingEnvironment.getArgument("id");

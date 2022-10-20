@@ -10,6 +10,7 @@ import vn.longvan.tranning.spring.user.exception.UserNotExistException;
 import vn.longvan.tranning.spring.user.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class UserManager {
@@ -58,6 +59,9 @@ public class UserManager {
         if (mongoTemplate.exists(Query.query(Criteria.where("id").is(user.getId())), User.class)) {
             throw new UserAlreadyExistException(USER_EXIST, user);
         }
+
+        // Tạo id cho user
+        user.setId(UUID.randomUUID().toString());
         mongoTemplate.save(user, "user");
     }
 
@@ -81,7 +85,7 @@ public class UserManager {
 
     /**
      * Delete
-     * Kiểm tra nếu user không tồn tại thì trả về exception  UserNotExistException
+     * Kiểm tra nếu user không tồn tại thì trả về exception UserNotExistException
      *
      * @param userId
      */
