@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:composite = "http://java.sun.com/jsf/composite"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/com"
+      xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+    <composite:attribute name = "nameLabel" />
+    <composite:attribute name = "nameValue" />
+    <composite:attribute name = "birthDayLabel" />
+    <composite:attribute name = "birthDayValue" />
+    <composite:attribute name = "birthDayLabel" />
+    <composite:attribute name = "createdLabel" />
+    <composite:attribute name = "createdValue" />
+    <composite:attribute name = "updatedLabel" />
+    <composite:attribute name = "updatedValue" />
+    <composite:attribute name = "actionButtonLabel" />
+    <composite:attribute name = "actionButtonAction"
+                         method-signature = "java.lang.String login()" />
+</composite:interface>
+
+<composite:implementation>
+    <h:form>
+        <p:messages id="messages"/>
+        <p:outputLabel  value="Thêm tài khoản" styleClass="block my-4 text-2xl"/>
+        <h:panelGrid columns="2" cellpadding="7">
+            <p:outputLabel value="#{cc.attrs.nameLabel}"/>
+            <p:inputText id="name" required="true" value="#{cc.attrs.nameValue}"/>
+            <p:outputLabel  value="#{cc.attrs.birthDayLabel}"/>
+            <p:datePicker  value="#{cc.attrs.birthDayValue}"
+                           showTime="true" required="true"/>
+            <p:outputLabel value="#{cc.attrs.createdLabel}"/>
+            <p:datePicker  value="#{cc.attrs.createdValue}"
+                           showTime="true" required="true"/>
+            <p:outputLabel value="#{cc.attrs.updatedLabel}"/>
+            <p:datePicker id="popup" widgetVar="dpPopup" value="#{cc.attrs.updatedValue}"
+                          showTime="true" required="true" pattern = "yyyy-MM-dd"  />
+            <p:commandButton value="#{cc.attrs.actionButtonLabel}" action="#{cc.attrs.actionButtonAction}" update="@form" styleClass="mt-3"/>
+            <p:spacer/>
+        </h:panelGrid>
+    </h:form>
+</composite:implementation>
+</html>
