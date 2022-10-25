@@ -43,10 +43,11 @@ public class UserBean implements Serializable {
 
     public void loadData(){
         lazyModel = new LazyUserDataModel(userController.listAllUsers());
+        user = new User();
     }
 
     public void addUser(){
-        user = new User();
+        user =null;
     }
 
     public String loadUserDetail(String userId) {
@@ -54,10 +55,9 @@ public class UserBean implements Serializable {
         return "userDetail?faces-redirect=true";
     }
 
-    public String createUser(){
+    public void createUser(){
         userController.createUser(user);
-        user = new User();
-        return "userDetail";
+
     }
 
     public String changeNameUser(){

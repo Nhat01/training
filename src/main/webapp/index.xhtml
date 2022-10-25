@@ -5,47 +5,41 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:co="http://java.sun.com/jsf/com">
+      xmlns:co="http://java.sun.com/jsf/composite/com">
 
 <h:head>
     <title>Danh sách người dùng</title>
-    <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css"/>
 </h:head>
 
 <h:body>
     <f:metadata>
         <f:event type="preRenderView" listener="#{userBean.loadData()}"/>
     </f:metadata>
-    <p:outputLabel  value="Danh sách người dùng" styleClass="block text-center font-bold my-4 text-2xl"/>
 
-    <!--  start dialog add user  -->
-    <h:form>
-        <p:commandButton type="button" action="#{userBean.addUser()}" icon="pi pi-plus" onclick="PF('dlg2').show()" styleClass="mx-5"/>
+    <p:outputLabel value="Danh sách người dùng" styleClass="block text-center font-bold my-4 text-2xl"/>
+
+    <h:form styleClass="flex justify-content-end ">
+        <co:dialogCustom
+                nameLabel="Create User"
+                nameValue="dialogCreate.xhtml"
+        />
     </h:form>
-    <p:dialog header="Thêm User" widgetVar="dlg2" minHeight="40" width="500" showEffect="fade" modal="true">
-        <ui:insert name="addUser">
-            <ui:include src="template/dialog.xhtml" />
-        </ui:insert>
-    </p:dialog>
 
-<!--      end-->
-
-    <h:form id="form" styleClass="m-5 ">
+    <h:form id="form" styleClass="mx-5 ">
 
         <p:commandButton action="#{userBean.loadData()}"
                          icon="pi pi-refresh" update="@form" process="@this" styleClass="my-2"/>
-<!--        <p:commandButton action="#{userBean.addUser()}"-->
-<!--                         icon="pi pi-plus"/>-->
 
         <p:dataTable var="user" value="#{userBean.lazyModel}"
                      paginator="true" rows="10"
                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                      rowsPerPageTemplate="5,10,15" selectionMode="single" lazy="true"
                      paginatorPosition="top"
-                     >
-             <p:column headerText="Id">
-                           <h:outputText value="#{user.id}"/>
-                       </p:column>
+        >
+            <p:column headerText="Id">
+                <h:outputText value="#{user.id}"/>
+            </p:column>
             <p:column headerText="Name">
                 <h:outputText value="#{user.name}"/>
             </p:column>
@@ -64,11 +58,10 @@
                     <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
                 </h:outputText>
             </p:column>
-                <p:column headerText="Action">
-                      <p:commandButton value="Detail" action="#{userBean.loadUserDetail(user.id)}" styleClass="mx-2"/>
-                      <p:commandButton value="Delete" action="#{userBean.deleteUser(user.id)}" styleClass="ui-button-danger"
-                        update="@form" process="@this"
-                      />
+            <p:column headerText="Action">
+                <p:commandButton value="Detail" action="#{userBean.loadUserDetail(user.id)}" styleClass="ui-button-info mx-2"/>
+                <p:commandButton value="Delete" action="#{userBean.deleteUser(user.id)}" styleClass="ui-button-danger"
+                                 update="@form" process="@this"/>
             </p:column>
         </p:dataTable>
     </h:form>

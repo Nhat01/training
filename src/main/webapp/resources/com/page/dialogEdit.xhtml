@@ -10,18 +10,15 @@
 </h:head>
 <h:body>
     <ui:composition>
-        <div class="card mx-4">
+        <div class="mx-4">
             <h:form>
                 <p:messages id="messages"/>
                 <p:outputLabel value="Cập nhật tên cho người dùng: #{userBean.user.name}" styleClass="block my-3 font-bold text-xl"/>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Name:"/>
+                <h:panelGrid columns="2" styleClass="my-3">
+                    <p:outputLabel value="Name:" styleClass="mr-5"/>
                     <p:inputText id="name" required="true" value="#{userBean.user.name}"/>
-                    <p:commandButton value="Update" action="#{userBean.changeNameUser()}" styleClass="mt-3"/>
-                    <p:spacer/>
-                    <p:commandLink action="index?faces-redirect=true" styleClass="block m-2"
-                                   value="Return"/>
                 </h:panelGrid>
+                <h:commandButton value="Update" action="#{userBean.changeNameUser()}" styleClass="my-3 bg-primary border-none border-round p-2"/>
             </h:form>
         </div>
     </ui:composition>
