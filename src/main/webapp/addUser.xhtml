@@ -26,9 +26,12 @@
                 <p:datePicker  value="#{userBean.user.created}"
                               showTime="true" required="true"/>
                 <p:outputLabel value="Updated:"/>
-                <p:datePicker value="#{userBean.user.updated}"
-                              showTime="true" required="true"/>
-                <p:commandButton value="Create " action="#{userBean.createUser()}" update="@form" styleClass="mt-3"/>
+
+                    <p:outputLabel for="basic" value="Basic"/>
+                    <p:datePicker id="basic" value="#{userBean.user.updated}" />
+                <p:datePicker id="popup" widgetVar="dpPopup" value="#{userBean.user.updated}"
+                              showTime="true" required="true" pattern = "yyyy-MM-dd"  />
+<!--                <p:commandButton value="Create" action="#{userBean.createUser()}" update="@form" styleClass="mt-3"/>-->
                 <p:spacer/>
             </h:panelGrid>
         </h:form>

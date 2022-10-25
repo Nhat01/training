@@ -1,10 +1,13 @@
 package vn.longvan.tranning.spring.user.bean;
 
+import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.longvan.tranning.spring.user.controller.UserController;
+import vn.longvan.tranning.spring.user.lazy.LazyUserDataModel;
 import vn.longvan.tranning.spring.user.model.User;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -23,25 +26,27 @@ public class UserBean implements Serializable {
 
     private List<User> users = new ArrayList<>();
 
-    /**
-     * Khi người dùng load trang web hoặc ấn refresh
-     * index -> bean -> controller
-     * @param
-     * @return
-     */
-    public void loadData(){
-        users = userController.listAllUsers();
+    public LazyDataModel<User> getLazyModel() {
+        return lazyModel;
     }
 
-    /**
-     * Khi người ấn vào thêm người dùng tạo đối tượng
-     * người dùng mới và chuyển hướng đến trang add User
-     * @param
-     * @return
-     */
-    public String addUser(){
+    public void setLazyModel(LazyDataModel<User> lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+
+    private LazyDataModel<User> lazyModel;
+
+    @PostConstruct
+    public void init() {
+        lazyModel = new LazyUserDataModel(userController.listAllUsers());
+    }
+
+    public void loadData(){
+        lazyModel = new LazyUserDataModel(userController.listAllUsers());
+    }
+
+    public void addUser(){
         user = new User();
-        return "addUser?faces-redirect=true";
     }
 
     public String loadUserDetail(String userId) {
@@ -49,33 +54,17 @@ public class UserBean implements Serializable {
         return "userDetail?faces-redirect=true";
     }
 
-    /**
-     * Khi người dùng tạo user
-     * khi thành công sẽ được chuyển hướng về trang user detail
-     * @param
-     * @return
-     */
     public String createUser(){
         userController.createUser(user);
+        user = new User();
         return "userDetail";
     }
 
-    /**
-     * Khi người dùng sửa tên
-     * khi thành công sẽ được chuyển hướng về trang user detail
-     * @param
-     * @return userDetail page
-     */
     public String changeNameUser(){
         userController.changeNameUser(user.getId(), user.getName());
         return "userDetail?faces-redirect=true";
     }
 
-    /**
-     * Người dùng xóa user
-     * @param userId
-     * @return
-     */
     public void deleteUser(String userId){
         userController.deleteUser(userId);
     }
