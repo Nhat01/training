@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="crud-practice" />
+        <module name="crud-practice-pratice-vohoaithuong" />
         <module name="Practice" />
         <module name="crud-pratice" />
       </profile>
