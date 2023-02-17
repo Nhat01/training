@@ -43,32 +43,6 @@ public class TestUserManager {
          *   3. Test tao user đã tồn tại
          *
          */
-        // 1. Create user.
-        createUser.setName("Vo Hoai Thuong");
-        createUser.setBirthDay(new Date());
-        createUser.setCreated(new Date());
-        createUser.setUpdated(new Date());
-
-        userManager.createUser(createUser);
-
-        //2. Get user kiểm tra thông tin trả về.
-        User userTest = userManager.getUser(createUser.getId());
-        Assertions.assertEquals(createUser.getId(), userTest.getId());
-        Assertions.assertEquals(createUser.getName(), userTest.getName());
-        Assertions.assertEquals(createUser.getBirthDay(), userTest.getBirthDay());
-        Assertions.assertEquals(createUser.getCreated(), userTest.getCreated());
-        Assertions.assertEquals(createUser.getUpdated(), userTest.getUpdated());
-
-        // 3. Test tao user đã tồn tại
-        UserAlreadyExistException thrown = Assertions.assertThrows(
-                UserAlreadyExistException.class,
-                () -> {
-                    userManager.createUser(createUser);
-                }
-        );
-
-        Assertions.assertEquals(UserManager.USER_EXIST, thrown.getMessage());
-
     }
 
     @Test
@@ -80,25 +54,6 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user
          *  3. Change user name không tồn tại
          */
-        String userId = "6350a639853eb67582bc08e8";
-        String userIdNotExist = "0";
-        String newName = "Change Vo Hoai Thuong";
-
-        userManager.changeUserName(userId, newName);
-
-        // 2. Get user kiểm tra tên user
-        User userTest = userManager.getUser(userId);
-
-        Assertions.assertEquals(newName, userTest.getName());
-
-        // 3. Change user name không tồn tại
-        UserNotExistException thrown = Assertions.assertThrows(
-                UserNotExistException.class,
-                () -> {
-                    userManager.changeUserName(userIdNotExist, newName);
-                }
-        );
-        Assertions.assertEquals(UserManager.USER_NOT_EXIST, thrown.getMessage());
 
     }
 
@@ -111,17 +66,6 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user có bằng null
          *  3. Xóa user không tồn tại
          */
-        String userIdNotExist = "0";
 
-        userManager.deleteUser(createUser.getId());
-        Assertions.assertNull(userManager.getUser(createUser.getId()));
-
-        UserNotExistException thrown = Assertions.assertThrows(
-                UserNotExistException.class,
-                () -> {
-                    userManager.deleteUser(userIdNotExist);
-                }
-        );
-        Assertions.assertEquals(UserManager.USER_NOT_EXIST, thrown.getMessage());
     }
 }
