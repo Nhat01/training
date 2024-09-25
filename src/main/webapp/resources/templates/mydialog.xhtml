@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+    <composite:attribute name="myBean" />
+    <composite:attribute name="titleDialog" />
+</composite:interface>
+
+<composite:implementation>
+    <p:dialog header="#{titleDialog}"
+              showEffect="fade"
+              modal="true"
+              widgetVar="manageUserDialog"
+              responsive="true">
+        <h:form id="dialogs">
+            <p:outputPanel id="manage-user-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty myBean.user}">
+                    <div class="field">
+                        <p:outputLabel for="name">Name</p:outputLabel>
+                        <p:inputText id="name" value="#{myBean.user.name}">
+                        </p:inputText>
+                        <p:message for="name" display="icon"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="birthDay">Birthday</p:outputLabel>
+                        <p:datePicker id="birthDay" value="#{myBean.user.birthDay}" pattern="dd/MM/yyyy" showIcon="true" showOnFocus="false"  />
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <p:outputPanel style="margin-top: 20px; float:right;">
+                <p:commandButton value="Save"
+                                 icon="pi pi-check"
+                                 action="#{myBean.saveUser}"
+                                 update=":growl"
+                                 process="@this :dialogs:manage-user-content"
+                                 style="margin-right: 10px"
+                />
+                <p:commandButton value="Cancel"
+                                 icon="pi pi-times"
+                                 onclick="PF('manageUserDialog').hide()"
+                                 class="ui-button-secondary"
+                                 type="button" />
+            </p:outputPanel>
+        </h:form>
+    </p:dialog>
+</composite:implementation>
+</html>

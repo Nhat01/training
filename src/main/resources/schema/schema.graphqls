@@ -1,0 +1,24 @@
+type Query{
+    getAllUsers: [User],
+    getUserById(id: String!): User,
+    getUserByName(name: String!): [User]
+    getUsers(offset: Int!, pageSize: Int!): [User],
+    getCountUser: Int
+}
+
+type Mutation {
+    createUser(userInput: UserInput!): String,
+    updateUser(userId: String!, newName: String!): String,
+    deleteUser(userId: String!): String
+}
+
+type User {
+    id: String,
+    name: String,
+    birthDay: String
+}
+
+input UserInput {
+    name: String!
+    birthDay: String!
+}

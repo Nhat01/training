@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:co="http://java.sun.com/jsf/composite/templates">
+
+<h:head>
+    <title>Detail User</title>
+    <h:outputStylesheet name="css/style.css" />
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userDetailBean.onload()}"/>
+    </f:metadata>
+</h:head>
+<h:body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <p:commandLink action="#{userDetailBean.redirectToHome}" value="Home" />
+        <h1>Detail User</h1>
+        <h:form id="form" style="width: 500px">
+            <div style="margin-bottom: 20px">
+                <p:outputLabel style="font-size: 25px">Name: </p:outputLabel>
+                <p:outputLabel style="font-size: 25px" value="#{userDetailBean.user.name}"/>
+            </div>
+            <div>
+                <p:outputLabel style="font-size: 25px">BirthDay: </p:outputLabel>
+                <p:outputLabel style="font-size: 25px" value="#{userDetailBean.user.birthDay}"><f:convertDateTime pattern="dd/MM/yyyy" /></p:outputLabel>
+            </div>
+
+            <p:commandButton icon="pi pi-pencil"
+                             update=":dialogs:manage-user-content"
+                             oncomplete="PF('manageUserDialog').show()"
+                             style="margin-top: 20px; padding: 20px"
+                             styleClass="edit-button rounded-button ui-button-success"
+                             process="@this"
+            >
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="growl" showDetail="true" />
+
+        <ui:include src="resources/templates/mydialog.xhtml">
+            <ui:param name="myBean" value="#{userDetailBean}" ></ui:param>
+            <ui:param name="titleDialog" value="Edit User" ></ui:param>
+        </ui:include>
+
+    </div>
+</h:body>
+</html>

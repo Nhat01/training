@@ -11,7 +11,11 @@ import vn.longvan.tranning.spring.user.exception.UserAlreadyExistException;
 import vn.longvan.tranning.spring.user.exception.UserNotExistException;
 import vn.longvan.tranning.spring.user.model.User;
 import vn.longvan.tranning.spring.user.manager.UserManager;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,10 +33,8 @@ public class TestUserManager {
     @Test
     @Order(1)
     public void setup() {
-        createUser = new User();
-        createUser.setId(UUID.randomUUID().toString());
-    }
 
+    }
     @Test
     @Order(2)
     public void testCreateUser() {
@@ -41,8 +43,21 @@ public class TestUserManager {
          *   1. Create user.
          *   2. Get user kiểm tra thông tin trả về.
          *   3. Test tao user đã tồn tại
-         *
          */
+        createUser = new User();
+        createUser.setId(UUID.randomUUID().toString());
+        createUser.setName("Test User");
+        createUser.setBirthDay(new Date());
+        try {
+            userManager.createUser(createUser);
+            User user = userManager.getUser(createUser.getId());
+            assertEquals(user.getName(), createUser.getName());
+        } catch (Exception e){
+
+        }
+        assertThrows(UserAlreadyExistException.class, () -> {
+            userManager.createUser(createUser);
+        });
     }
 
     @Test
@@ -54,6 +69,19 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user
          *  3. Change user name không tồn tại
          */
+        createUser = new User();
+        createUser.setId(UUID.randomUUID().toString());
+        createUser.setName("Test User");
+        createUser.setBirthDay(new Date());
+        try {
+            userManager.changeUserName(createUser.getId(), "New Name");
+            User user = userManager.getUser(createUser.getId());
+            assertEquals(user.getName(), createUser.getName());
+        } catch (Exception e){
+            assertThrows(UserNotExistException.class, () -> {
+                userManager.changeUserName(createUser.getId(), "New Name");
+            });
+        }
 
     }
 
@@ -66,6 +94,14 @@ public class TestUserManager {
          *  2. Get user kiểm tra tên user có bằng null
          *  3. Xóa user không tồn tại
          */
-
+        createUser = new User();
+        createUser.setId("90aecc90-865e-4362-8427-7b7ab2a63012");
+        try {
+            userManager.deleteUser(createUser.getId());
+        } catch (Exception e){
+            assertThrows(UserNotExistException.class, () -> {
+                userManager.deleteUser(createUser.getId());
+            });
+        }
     }
 }

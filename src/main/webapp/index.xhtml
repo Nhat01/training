@@ -5,13 +5,80 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:co="http://java.sun.com/jsf/composite/com">
+      xmlns:co="http://java.sun.com/jsf/composite/templates">
 
 <h:head>
     <title>Danh sách người dùng</title>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userListBean.onload()}"/>
+    </f:metadata>
 </h:head>
 
 <h:body>
+    <h1 style="text-align: center">Danh sách User</h1>
+    <div style="margin: 0 120px">
+        <p:commandButton value="New" icon="pi pi-plus"
+                         actionListener="#{userListBean.openNew}"
+                         update=":dialogs:manage-user-content"
+                         oncomplete="PF('manageUserDialog').show()"
+                         styleClass="ui-button-success"
+                         style="margin-bottom: .5rem"
+        >
+            <p:resetInput target=":dialogs:manage-user-content" />
+        </p:commandButton>
 
+
+        <h:form id="form">
+            <p:dataTable id="userTable" var="user"
+                         value="#{userListBean.lazyModel}"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" selectionMode="single"
+            >
+                <p:column headerText="Name">
+                    <h:outputText value="#{user.name}" />
+                </p:column>
+                <p:column headerText="Birthday">
+                    <h:outputText value="#{user.birthDay}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column exportable="false"
+                          ariaHeaderText="Actions"
+                          width="120px"
+                          style="text-align: center">
+                    <p:commandButton class="ui-button-raised rounded-button" icon="pi pi-eye" style="margin-right: 10px"
+                                     action="#{userListBean.redirectDetail}"
+                    >
+                        <f:setPropertyActionListener value="#{user}" target="#{userListBean.user}" />
+                    </p:commandButton>
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                     process="@this"
+                                     oncomplete="PF('deleteUserDialog').show()"
+                    >
+                        <f:setPropertyActionListener value="#{user}" target="#{userListBean.user}" />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <div>
+            <p:growl id="growl" showDetail="true" />
+            <p:confirmDialog widgetVar="deleteUserDialog" showEffect="fade" width="300"
+                             message="Delete the user?" header="Confirm" severity="warn">
+                <p:commandButton value="Yes" icon="pi pi-check"
+                                 process="@this"
+                                 action="#{userListBean.deleteUser}"
+                                 oncomplete="PF('deleteUserDialog').hide()" />
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteUserDialog').hide()" />
+            </p:confirmDialog>
+            <ui:include src="resources/templates/mydialog.xhtml">
+                <ui:param name="myBean" value="#{userListBean}"></ui:param>
+                <ui:param name="titleDialog" value="Add User" ></ui:param>
+            </ui:include>
+        </div>
+    </div>
 </h:body>
 </html>

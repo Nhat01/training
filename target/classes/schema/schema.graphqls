@@ -1,19 +1,24 @@
-type Query {
-    users: [User]
-    user(id:String!): User
-    username(name:String!): [User]
+type Query{
+    getAllUsers: [User],
+    getUserById(id: String!): User,
+    getUserByName(name: String!): [User]
+    getUsers(offset: Int!, pageSize: Int!): [User],
+    getCountUser: Int
 }
 
 type Mutation {
-    addUser(name:String!, birthDay: String, created: String, updated: String):User
-    updateUserName(id:String!, name:String): User
-    deleteUser(id: String!): Boolean
+    createUser(userInput: UserInput!): String,
+    updateUser(userId: String!, newName: String!): String,
+    deleteUser(userId: String!): String
 }
 
 type User {
-    id: String
-    name: String
+    id: String,
+    name: String,
     birthDay: String
-    created: String
-    updated: String
+}
+
+input UserInput {
+    name: String!
+    birthDay: String!
 }
