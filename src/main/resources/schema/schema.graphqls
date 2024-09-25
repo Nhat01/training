@@ -2,7 +2,7 @@ type Query{
     getAllUsers: [User],
     getUserById(id: String!): User,
     getUserByName(name: String!): [User]
-    getUsers(offset: Int!, pageSize: Int!): [User],
+    getUsers(offset: Int!, pageSize: Int!, ): [User],
     getCountUser: Int
 }
 
@@ -11,6 +11,7 @@ type Mutation {
     updateUser(userId: String!, newName: String!): String,
     deleteUser(userId: String!): String
 }
+
 
 type User {
     id: String,

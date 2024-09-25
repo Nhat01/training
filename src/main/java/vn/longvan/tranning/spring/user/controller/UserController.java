@@ -1,6 +1,7 @@
 package vn.longvan.tranning.spring.user.controller;
 
 import org.primefaces.model.FilterMeta;
+import org.primefaces.model.SortMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.longvan.tranning.spring.user.manager.UserManager;
@@ -41,12 +42,12 @@ public class UserController {
         userManager.deleteUser(userId);
     }
 
-    public List<User> getUsers(int offset, int pageSize) {
-        return userManager.getUsers(offset, pageSize);
+    public List<User> getUsers(int offset, int pageSize, Map<String, FilterMeta> filter, Map<String, SortMeta> sort) {
+        return userManager.getUsers(offset, pageSize, filter, sort);
     }
 
-    public int countUsers() {
-        return userManager.countUsers();
+    public int countUsers(Map<String, FilterMeta> filterBy) {
+        return userManager.countUsers(filterBy);
     }
 
 }

@@ -35,13 +35,17 @@
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                          rowsPerPageTemplate="5,10,15" selectionMode="single"
             >
-                <p:column headerText="Name">
+                <p:column headerText="Name" filterBy="#{user.name}" sortBy="#{user.name}">
                     <h:outputText value="#{user.name}" />
                 </p:column>
-                <p:column headerText="Birthday">
+                <p:column headerText="Birthday" sortBy="#{user.birthDay}" filterBy="#{user.birthDay}">
                     <h:outputText value="#{user.birthDay}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
+                    <f:facet name="filter">
+                        <p:datePicker selectionMode="range" styleClass="ui-custom-filter"
+                                      update="userTable" onchange="PF('userTable').filter()" />
+                    </f:facet>
                 </p:column>
                 <p:column exportable="false"
                           ariaHeaderText="Actions"

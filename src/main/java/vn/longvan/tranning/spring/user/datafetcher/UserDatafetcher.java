@@ -31,13 +31,5 @@ public class UserDatafetcher {
         return userController.getUserByName(name);
     }
 
-    @DgsQuery
-    public List<User> getUsers(@InputArgument int offset, @InputArgument int pageSize) {
-        return userController.getUsers(offset, pageSize);
-    }
 
-    @DgsQuery
-    public int getCountUser() {
-        return userController.countUsers();
-    }
 }
