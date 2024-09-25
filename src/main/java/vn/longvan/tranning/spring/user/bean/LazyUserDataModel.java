@@ -24,7 +24,8 @@ public class LazyUserDataModel extends LazyDataModel<User> {
     }
 
     @Override
-    public User getRowData(String rowKey) { return null; }
+    public User getRowData(String rowKey) {
+        return null; }
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {

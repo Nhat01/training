@@ -120,7 +120,7 @@ public class UserManager {
 
     private void filterUser(Query query, Map<String, FilterMeta> filterBy) {
         filterBy.forEach((key, value) -> {
-            if (key.equals("birthDay")) {
+            if (key.equals("birthDay") && value.getFilterValue() instanceof List) {
                 List<LocalDate> dateRange = (List<LocalDate>) value.getFilterValue();
                 LocalDate startDateLocal = dateRange.get(0);
                 LocalDate endDateLocal = dateRange.get(1);

@@ -27,11 +27,11 @@
             <p:resetInput target=":dialogs:manage-user-content" />
         </p:commandButton>
 
-
         <h:form id="form">
             <p:dataTable id="userTable" var="user"
                          value="#{userListBean.lazyModel}"
                          paginator="true" rows="10"
+                         widgetVar="userTable"
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                          rowsPerPageTemplate="5,10,15" selectionMode="single"
             >
@@ -43,8 +43,13 @@
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <f:facet name="filter">
-                        <p:datePicker selectionMode="range" styleClass="ui-custom-filter"
-                                      update="userTable" onchange="PF('userTable').filter()" />
+                        <f:facet name="filter">
+                            <p:datePicker id="dateFilter" selectionMode="range" styleClass="ui-custom-filter" pattern="dd/MM/yyyy"
+                                         onchange="PF('userTable').filter();"
+                                          widgetVar="datePickerWidget" autoClose="false">
+                                <p:ajax event="dateSelect" oncomplete="PF('datePickerWidget').hide(); PF('userTable').filter();" />
+                            </p:datePicker>
+                        </f:facet>
                     </f:facet>
                 </p:column>
                 <p:column exportable="false"
